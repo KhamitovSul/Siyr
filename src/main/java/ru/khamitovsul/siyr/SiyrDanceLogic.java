@@ -3,52 +3,41 @@ package ru.khamitovsul.siyr;
 import net.minecraft.entity.passive.CowEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.UUID;
 
 public final class SiyrDanceLogic {
-    private static final int DANCE_LENGTH_TICKS = 20 * 20;
+    private static final Set<UUID> ACTIVE_COWS = new HashSet<>();
 
     private SiyrDanceLogic() {
     }
 
-    public static void onCowLoaded(CowEntity cow, ServerWorld world) {
-        if (SiyrMod.isSiyr(cow) && !isDancing(cow)) {
-            start(cow, world);
-        }
-    }
-
     public static void tick(CowEntity cow, ServerWorld world) {
+        UUID id = cow.getUuid();
         if (!SiyrMod.isSiyr(cow)) {
-            if (isDancing(cow)) {
-                state(cow).siyr$setDanceTicks(0);
-            }
+            ACTIVE_COWS.remove(id);
             return;
         }
 
-        if (!isDancing(cow)) {
+        if (ACTIVE_COWS.add(id)) {
             start(cow, world);
-            return;
         }
-
-        state(cow).siyr$setDanceTicks(state(cow).siyr$getDanceTicks() - 1);
     }
 
     public static boolean isDancing(CowEntity cow) {
-        return state(cow).siyr$getDanceTicks() > 0;
+        return SiyrMod.isSiyr(cow);
     }
 
     private static void start(CowEntity cow, ServerWorld world) {
-        state(cow).siyr$setDanceTicks(DANCE_LENGTH_TICKS);
         world.playSound(
                 null,
                 cow.getBlockPos(),
-                SiyrMod.SIYR_DANCE_SOUND.value(),
+                SiyrMod.SIYR_DANCE_SOUND,
                 SoundCategory.NEUTRAL,
                 1.0F,
                 1.0F
         );
     }
 
-    private static SiyrDanceState state(CowEntity cow) {
-        return (SiyrDanceState) cow;
-    }
 }
