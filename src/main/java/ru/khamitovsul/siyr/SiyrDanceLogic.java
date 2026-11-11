@@ -41,7 +41,7 @@ public final class SiyrDanceLogic {
         world.playSound(
                 null,
                 cow.getBlockPos(),
-                SiyrMod.SIYR_DANCE_SOUND,
+                SiyrMod.SIYR_DANCE_SOUND.value(),
                 SoundCategory.NEUTRAL,
                 1.0F,
                 1.0F
