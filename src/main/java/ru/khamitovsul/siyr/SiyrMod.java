@@ -15,7 +15,7 @@ public final class SiyrMod implements ModInitializer {
     public static final RegistryEntry<SoundEvent> SIYR_DANCE_SOUND = Registry.registerReference(
             Registries.SOUND_EVENT,
             SIYR_DANCE_ID,
-            SoundEvent.createVariableRangeEvent(SIYR_DANCE_ID)
+            SoundEvent.of(SIYR_DANCE_ID)
     );
 
     @Override
