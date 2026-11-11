@@ -1,0 +1,10 @@
+{
+  "siyr_dance": {
+    "sounds": [
+      {
+        "name": "siyr:siyr_dance",
+        "stream": true
+      }
+    ]
+  }
+}

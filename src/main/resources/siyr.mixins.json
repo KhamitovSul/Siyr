@@ -1,0 +1,9 @@
+{
+  "required": true,
+  "package": "ru.khamitovsul.siyr.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": ["CowEntityMixin"],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
